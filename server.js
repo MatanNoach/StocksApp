@@ -4,21 +4,35 @@ const https = require("https");
 
 const express = require("express");
 const app = express();
+const savedData = require('./data.json')
 
 app.use((_, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "*");
-    res.setHeader("Access-Control-Allow-Headers", "*");
-    next();
-  });
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
+const baseURL = "https://www.alphavantage.co/query?function=TIME_SERIES_";
+var apiKey = "TYO04VOOTGSCCHSN";
 
-  var apiKey = "TYO04VOOTGSCCHSN";
-  var urlDaily = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey="+apiKey
-  var urlMinute =
-    'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey='+apiKey;
-app.get("/", (req, res) => {
+function ConstructUrl(timeSeries,symbol,interval=""){
+  var url=baseURL;
+  url+=timeSeries+"&symbol="+symbol;
+  if(timeSeries==="INTRADAY"){
+    url+="&interval="+interval;
+  }
+  url+="&apikey=" +apiKey;
+  console.log("URL: ",url);
+  return url;
+}
+
+app.get("/fetch/stock?", (req, res) => {
+  const symbol = req.query.symbol;
+  const timeSeries = req.query.timeSeries;
+  const interval = req.query.interval;
+  // res.send(savedData)
   https
-    .get(urlDaily, (resp) => {
+    .get(ConstructUrl(timeSeries,symbol,interval), (resp) => {
       let data = "";
       resp.on("data", (chunk) => {
         data += chunk;

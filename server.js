@@ -30,20 +30,20 @@ app.get("/fetch/stock?", (req, res) => {
   const symbol = req.query.symbol;
   const timeSeries = req.query.timeSeries;
   const interval = req.query.interval;
-  res.send(savedData)
-  // https
-  //   .get(ConstructUrl(timeSeries,symbol,interval), (resp) => {
-  //     let data = "";
-  //     resp.on("data", (chunk) => {
-  //       data += chunk;
-  //     });
-  //     resp.on("end", () => {
-  //       res.send(JSON.parse(data));
-  //     });
-  //   })
-  //   .on("error", (err) => {
-  //     console.log("Error: ", err);
-  //   });
+  // res.send(savedData)
+  https
+    .get(ConstructUrl(timeSeries,symbol,interval), (resp) => {
+      let data = "";
+      resp.on("data", (chunk) => {
+        data += chunk;
+      });
+      resp.on("end", () => {
+        res.send(JSON.parse(data));
+      });
+    })
+    .on("error", (err) => {
+      console.log("Error: ", err);
+    });
 });
 
 app.listen(4000, () => console.log("listening on port 4000"));

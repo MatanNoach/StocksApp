@@ -25,6 +25,7 @@ class Stock extends Component {
   calcChange = (parsedData) => {
     var percentage = parsedData[0].data[0].y / parsedData[0].data[29].y;
     percentage -= 1;
+    percentage*=100;
     this.setState({
       change: percentage,
     });

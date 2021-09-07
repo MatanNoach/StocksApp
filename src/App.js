@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Component } from "react";
 import Wrapper from "./components/Wrapper";
 import StocksTable from "./components/StocksTable";
+import Login from "./components/Pages/Login";
 class App extends Component {
   render() {
     return (
@@ -14,7 +15,8 @@ class App extends Component {
             <div>
               <Wrapper>
                 <h6>&nbsp;</h6>
-                <StocksTable/>
+              <Login/>
+                {/* <StocksTable/> */}
               </Wrapper>
             </div>
           )}

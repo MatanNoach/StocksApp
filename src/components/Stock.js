@@ -25,7 +25,7 @@ class Stock extends Component {
   calcChange = (parsedData) => {
     var percentage = parsedData[0].data[0].y / parsedData[0].data[29].y;
     percentage -= 1;
-    percentage*=100;
+    percentage *= 100;
     this.setState({
       change: percentage,
     });
@@ -47,7 +47,7 @@ class Stock extends Component {
                 label="Time"
               >
                 <MenuItem value="Daily">Month</MenuItem>
-                <MenuItem value="Intraday">Day</MenuItem>
+                <MenuItem value="Intraday">Hourly</MenuItem>
                 <MenuItem value="Monthly">Year</MenuItem>
               </Select>
             </FormControl>

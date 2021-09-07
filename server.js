@@ -13,32 +13,61 @@ app.use((_, res, next) => {
   next();
 });
 const baseURL = "https://www.alphavantage.co/query?function=TIME_SERIES_";
-var apiKey = "TYO04VOOTGSCCHSN";
+const apiKey = "TYO04VOOTGSCCHSN";
+const dataNum = 30;
 
-function ConstructUrl(timeSeries,symbol,interval=""){
+function ConstructUrl(timeSeries,symbol){
   var url=baseURL;
   url+=timeSeries+"&symbol="+symbol;
   if(timeSeries==="INTRADAY"){
-    url+="&interval="+interval;
+    url+="&interval=60min";
   }
   url+="&apikey=" +apiKey;
   console.log("URL: ",url);
   return url;
 }
+function parseData(dataToParse, type,symbol ) {
+  var parsedData = [];
+  var someData = [];
+  var timeSeries="";
+  if(type==="INTRADAY"){
+    timeSeries = dataToParse[`Time Series (60min)`];  
+  }else if (type==="MONTHLY"){
+    timeSeries = dataToParse[`Monthly Time Series`];
+  }else if(type==="DAILY"){
+    timeSeries = dataToParse[`Time Series (Daily)`];
+  }else{
+    throw new Error("Invalid time series type")
+  }
+  var i = 0;
+  for (var key in timeSeries) {
+    if (timeSeries.hasOwnProperty(key) && i < dataNum) {
+      someData.push({
+        x: new Date(key),
+        y: timeSeries[key]["4. close"],
+      });
+      i++;
+    }
+  }
+  parsedData.push({
+    id: symbol,
+    data: someData,
+  });
+  return parsedData;
+}
 
 app.get("/fetch/stock?", (req, res) => {
-  const symbol = req.query.symbol;
-  const timeSeries = req.query.timeSeries;
-  const interval = req.query.interval;
+  const symbol = req.query.symbol.toUpperCase();
+  const timeSeries = req.query.timeSeries.toUpperCase();
   // res.send(savedData)
   https
-    .get(ConstructUrl(timeSeries,symbol,interval), (resp) => {
+    .get(ConstructUrl(timeSeries,symbol), (resp) => {
       let data = "";
       resp.on("data", (chunk) => {
         data += chunk;
       });
       resp.on("end", () => {
-        res.send(JSON.parse(data));
+        res.send(parseData(JSON.parse(data),timeSeries,symbol));
       });
     })
     .on("error", (err) => {

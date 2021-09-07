@@ -3,9 +3,10 @@ import "./Login.css";
 import { Button } from "@material-ui/core";
 import Field from "../Common/Field";
 import * as Yup from "yup";
-import {withFormik } from "formik";
-
-const fields = ["email","password"];
+import { withFormik } from "formik";
+import { createLoginApi } from "../../LoginApi";
+const fields = ["email", "password"];
+const loginApi = createLoginApi();
 class Login extends Component {
   render() {
     return (
@@ -19,7 +20,7 @@ class Login extends Component {
                   key={i}
                   name={f}
                   // this goes to the formik values and binds the field value with the formik value
-                  value = {this.props.values[f]}
+                  value={this.props.values[f]}
                   // updates the value when it changes
                   onChange={this.props.handleChange}
                   // onBlur and touched helps checking if the field has been touched
@@ -42,33 +43,41 @@ class Login extends Component {
   }
 }
 export default withFormik({
-    // helps mapping from values to fields
-    mapPropsToValues:()=>({
-        email:"",
-        password:""
-    }),
-    // validation schema - gets a yup shape() result
-    // yup.shape() - gets an object of fields and validation needs to be done, and returns a validation schema
-    validationSchema:Yup.object().shape({
-      email:Yup.string().required("Please enter email").email("Please enter a valid email"),
-      password:Yup.string().required("Please enter password")
-    }),
-    // Old Validation with formik
-    // // validation function:
-    // // checks for every value if it is not empty
-    // validate: values=>{
-    //     const errors={};
-    //     Object.keys(values).map(k=>{
-    //         if(!values[k] ){
-    //             errors[k]="please enter "+k.toString();
-    //         }
-    //     })
-    //     return errors;
-    // },
+  // helps mapping from values to fields
+  mapPropsToValues: () => ({
+    email: "",
+    password: "",
+  }),
+  // validation schema - gets a yup shape() result
+  // yup.shape() - gets an object of fields and validation needs to be done, and returns a validation schema
+  validationSchema: Yup.object().shape({
+    email: Yup.string()
+      .required("Please enter email")
+      .email("Please enter a valid email"),
+    password: Yup.string().required("Please enter password"),
+  }),
+  // Old Validation with formik
+  // // validation function:
+  // // checks for every value if it is not empty
+  // validate: values=>{
+  //     const errors={};
+  //     Object.keys(values).map(k=>{
+  //         if(!values[k] ){
+  //             errors[k]="please enter "+k.toString();
+  //         }
+  //     })
+  //     return errors;
+  // },
 
-    // handles the submit if the form is filled correctly
-    handleSubmit:(values,{setSubmitting})=>{
-        console.log("VALUES: ",values);
-        alert("You've submitted the form");
+  // handles the submit if the form is filled correctly
+  handleSubmit: async (values, { setSubmitting }) => {
+    console.log("VALUES: ", values);
+    var result = await loginApi.findUser(values.email, values.password);
+    if (result.length === 1) {
+      console.log(result);
+      alert("You are logged in!");
+    }else{
+        alert("Wrong email or password!")
     }
+  },
 })(Login);

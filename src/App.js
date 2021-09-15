@@ -14,7 +14,7 @@ class App extends Component {
           render={() => (
             <div>
               <Wrapper>
-                <h6>&nbsp;</h6>
+                {/* <h6>&nbsp;</h6> */}
               <Login/>
                 {/* <StocksTable/> */}
               </Wrapper>

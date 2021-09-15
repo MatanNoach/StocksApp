@@ -3,6 +3,9 @@
     background: #eee;
     padding-top: 100px;
 }
+.login-page * {
+    margin-bottom: 10px;
+}
 .login-form{
     max-width: 500px;
     margin: auto;
@@ -17,4 +20,12 @@
     width: 100%;
     font-size: 26px;
     margin-bottom: 20px;
+}
+.login-button{
+    left:25%;
+    width:50%;
+    margin-bottom:10px !important;
+}
+.login-button span{
+    margin-bottom:0px !important;
 }

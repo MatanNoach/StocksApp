@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class Field extends Component {
   render() {
     return (
-      <div className="col-md-6" style={{marginBottom:"10px"}}>
+      <div className="col-md-6">
         <TextField
           label={this.props.name}
           id={this.props.name}
@@ -17,6 +17,7 @@ class Field extends Component {
           error = {this.props.errors &&this.props.touched ? true:false}
           // set error
           helperText={this.props.errors &&this.props.touched ? this.props.errors:""}
+          type={this.props.type}
         />
       </div>
     );

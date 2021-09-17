@@ -5,20 +5,11 @@ import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
 import { createLoginApi } from "../../LoginApi";
+import { connect } from "react-redux";
+import { loginUser } from "../../store/actions/AuthActions";
+
 const fields = ["email", "password"];
 const loginApi = createLoginApi();
-// handles the login if the form is filled correctly
-async function handleLogin(values) {
-  try {
-    var result = await loginApi.loginUser(values.email, values.password);
-    console.log(result);
-    alert("You are logged in!");
-  } catch (e) {
-    // TODO: better error handling
-    console.log(e);
-    alert("Wrong email or password!");
-  }
-}
 // handles the sign up if the form is filled correctly
 async function handleSignup(values) {
   try {
@@ -71,7 +62,7 @@ class Login extends Component {
               <Divider />
             </div>
             <div style={{ textAlign: "center" }}>
-              <Typography >
+              <Typography>
                 Not a member?&nbsp;
                 <Link
                   style={{ fontSize: 16 }}
@@ -90,40 +81,60 @@ class Login extends Component {
     );
   }
 }
-export default withFormik({
-  // helps mapping from values to fields
-  mapPropsToValues: () => ({
-    email: "",
-    password: "",
-  }),
-  // validation schema - gets a yup shape() result
-  // yup.shape() - gets an object of fields and validation needs to be done, and returns a validation schema
-  validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .required("Please enter email")
-      .email("Please enter a valid email"),
-    password: Yup.string().required("Please enter password"),
-  }),
-  // Old Validation with formik
-  // // validation function:
-  // // checks for every value if it is not empty
-  // validate: values=>{
-  //     const errors={};
-  //     Object.keys(values).map(k=>{
-  //         if(!values[k] ){
-  //             errors[k]="please enter "+k.toString();
-  //         }
-  //     })
-  //     return errors;
-  // },
 
-  handleSubmit: async (values) => {
-    const dataFlag = document.activeElement.dataset.flag;
-    console.log("data-flag: ", dataFlag);
-    if (!dataFlag || dataFlag === "login") {
-      handleLogin(values);
-    } else if (dataFlag === "signUp") {
-      handleSignup(values);
-    }
-  },
-})(Login);
+// This goes to the store's state, and returns a prop of the state's values
+// so on the start, this.props.auth will be equal to the auth initial values, but later it'll change to
+// the auth updated values
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (email, password) => dispatch(loginUser(email, password)),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withFormik({
+    // helps mapping from values to fields
+    mapPropsToValues: () => ({
+      email: "",
+      password: "",
+    }),
+    // validation schema - gets a yup shape() result
+    // yup.shape() - gets an object of fields and validation needs to be done, and returns a validation schema
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .required("Please enter email")
+        .email("Please enter a valid email"),
+      password: Yup.string().required("Please enter password"),
+    }),
+    // Old Validation with formik
+    // // validation function:
+    // // checks for every value if it is not empty
+    // validate: values=>{
+    //     const errors={};
+    //     Object.keys(values).map(k=>{
+    //         if(!values[k] ){
+    //             errors[k]="please enter "+k.toString();
+    //         }
+    //     })
+    //     return errors;
+    // },
+
+    handleSubmit: async (values, thisComponent) => {
+      const dataFlag = document.activeElement.dataset.flag;
+      console.log("function chosen: ", dataFlag);
+      if (!dataFlag || dataFlag === "login") {
+        console.log("logging in handle submit");
+        thisComponent.props.login(values.email, values.password);
+      } else if (dataFlag === "signUp") {
+        handleSignup(values);
+      }
+    },
+  })(Login)
+);

@@ -1,12 +1,12 @@
-import { createLoginApi } from "../../LoginApi";
-const loginApi = createLoginApi();
+import { createUserApi } from "../../UserApi";
+const userApi = createUserApi();
 // thunk needs to return a function
 export const loginUser = (email, password) => {
   // an arrow function that returns the dispatch method to the reducer
   return async (dispatch, getState) => {
     try {
       // make async call to db using the dispatch method
-      var result = await loginApi.loginUser(email, password);
+      var result = await userApi.loginUser(email, password);
       console.log("login result: ", result);
       // carry on with the dispatch after the async call performed
       dispatch({
@@ -17,7 +17,7 @@ export const loginUser = (email, password) => {
     } catch (e) {
       // TODO: better error handling
       console.log(e);
-      alert("Wrong email or password!");
+      alert(e);
     }
   };
 };

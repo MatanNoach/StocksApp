@@ -1,6 +1,6 @@
 import axios from "axios";
 const basicServerAdress = "http://localhost:3001/api/";
-export const createLoginApi = () => {
+export const createUserApi = () => {
   return {
     loginUser(email, password) {
       const credentials = {
@@ -20,5 +20,10 @@ export const createLoginApi = () => {
       var data = axios.post(url, credentials).then((res) => res.data);
       return data;
     },
+    getUserStocks(userId){
+      const url = basicServerAdress+"users/"+userId+"/stocks";
+      var data = axios.get(url).then((res) => res.data.stocks);
+      return data;
+    }
   };
 };

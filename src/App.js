@@ -17,9 +17,11 @@ class App extends Component {
             <div>
               <Wrapper>
               {this.props.auth.token?
-              // (<StocksTable/>)
+              
+              <StocksTable/>
+              // <LogoutButton/>
+                
               // (<h1>Hello</h1>)
-              (<LogoutButton/>)
               :
               (<Login/>)
             }

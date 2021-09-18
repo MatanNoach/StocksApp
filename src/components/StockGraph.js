@@ -48,7 +48,6 @@ class StockGraph extends Component {
     this.updateTimeSeries();
   }
   render() {
-    console.log("Data: ", this.state.stockData);
     return (
       <div className="Stock" style={{ height: "300px", width: "450px" }}>
         <ResponsiveLine

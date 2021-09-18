@@ -8,12 +8,12 @@ export const createAPIClient = () => {
   return {
     fetchStockTimeSeries(timeSeries, symbol) {
       var url =
-        "http://localhost:4000/fetch/stock?timeSeries=" +
+        "http://localhost:3001/api/stocks/AlphaVantage/stock?timeSeries=" +
         timeSeries +
         "&symbol=" +
         symbol;
       var data = axios.get(url).then((res) => res.data);
       return data;
-    },
+    }
   };
 };

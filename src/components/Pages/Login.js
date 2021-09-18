@@ -4,24 +4,14 @@ import { Button, Divider, Typography, Link } from "@material-ui/core";
 import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
-import { createLoginApi } from "../../LoginApi";
+import { createUserApi } from "../../UserApi";
 import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/AuthActions";
 
 const fields = ["email", "password"];
-const loginApi = createLoginApi();
+const userApi = createUserApi();
 // handles the sign up if the form is filled correctly
 async function handleSignup(values) {
-  try {
-    var result = await loginApi.createUser(values.email, values.password);
-    console.log(result);
-    alert("User created!");
-    alert("You are logged in!");
-  } catch (e) {
-    // TODO: better error handling
-    console.log(e);
-    alert("This email already exists");
-  }
 }
 class Login extends Component {
   render() {

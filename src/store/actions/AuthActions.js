@@ -29,3 +29,19 @@ export const logoutUser = () => {
     });
   };
 };
+export const createUser = (email, password) => {
+  return async (dispatch, getState) => {
+    try {
+      var result = await userApi.createUser(email, password);
+      console.log("creation result: ", result);
+      dispatch({
+        type: "user/create",
+        payload: { userId: result.userId, token: result.id },
+      });
+      alert("user created!");
+    } catch (e) {
+      console.log(e);
+      alert(e);
+    }
+  };
+};

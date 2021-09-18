@@ -11,6 +11,9 @@ const authReducer = (state = initState, action) => {
     case "user/logout":
       console.log("logging out");
       return action.payload;
+    case "user/create":
+      console.log("user created: ",action.payload)
+      return action.payload;
     default:
       return state;
   }

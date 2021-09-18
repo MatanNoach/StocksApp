@@ -4,12 +4,11 @@ import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
 import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/AuthActions";
+import { loginUser,createUser } from "../../store/actions/AuthActions";
 import { Box } from "@mui/material";
 
 const fields = ["email", "password"];
 // handles the sign up if the form is filled correctly
-async function handleSignup(values) {}
 class Login extends Component {
   render() {
     return (
@@ -100,6 +99,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(loginUser(email, password)),
+    signUp:(email,password) => dispatch(createUser(email,password)),
   };
 };
 export default connect(
@@ -128,7 +128,7 @@ export default connect(
         console.log("logging in handle submit");
         thisComponent.props.login(values.email, values.password);
       } else if (dataFlag === "signUp") {
-        handleSignup(values);
+        thisComponent.props.signUp(values.email,values.password);
       }
     },
   })(Login)

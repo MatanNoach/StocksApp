@@ -17,13 +17,13 @@ export const createUserApi = () => {
         password: password,
       };
       const url = basicServerAdress + "users/signUp";
-      var data = axios.post(url, credentials).then((res) => res.data);
+      var data = axios.post(url, credentials).then((res) => res.data.data);
       return data;
     },
-    getUserStocks(userId){
-      const url = basicServerAdress+"users/"+userId+"/stocks";
+    getUserStocks(userId) {
+      const url = basicServerAdress + "users/" + userId + "/stocks";
       var data = axios.get(url).then((res) => res.data.stocks);
       return data;
-    }
+    },
   };
 };

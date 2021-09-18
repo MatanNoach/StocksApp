@@ -6,6 +6,8 @@ import StocksTable from "./components/StocksTable";
 import Login from "./components/Pages/Login";
 import { connect } from "react-redux";
 import LogoutButton from "./components/LogoutButton";
+import Box from '@mui/material/Box'
+import { flexbox } from '@mui/system';
 class App extends Component {
   render() {
     return (
@@ -16,16 +18,13 @@ class App extends Component {
           render={() => (
             <div>
               <Wrapper>
-              {this.props.auth.token?
-              
-              <StocksTable/>
-              // <LogoutButton/>
-                
-              // (<h1>Hello</h1>)
-              :
-              (<Login/>)
-            }
-                
+                {this.props.auth.token ? (
+                  <StocksTable />
+                ) : (
+                  <Box sx={{ display:"flex",justifyContent:"center"}}>
+                    <Login />
+                  </Box>
+                )}
               </Wrapper>
             </div>
           )}
@@ -34,9 +33,9 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state)=>{
-  return{
-    auth:state.auth
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
 export default connect(mapStateToProps)(App);

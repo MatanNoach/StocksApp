@@ -5,6 +5,7 @@ import Wrapper from "./components/Wrapper";
 import StocksTable from "./components/StocksTable";
 import Login from "./components/Pages/Login";
 import { connect } from "react-redux";
+import LogoutButton from "./components/LogoutButton";
 class App extends Component {
   render() {
     return (
@@ -16,8 +17,9 @@ class App extends Component {
             <div>
               <Wrapper>
               {this.props.auth.token?
-              (<StocksTable/>)
+              // (<StocksTable/>)
               // (<h1>Hello</h1>)
+              (<LogoutButton/>)
               :
               (<Login/>)
             }

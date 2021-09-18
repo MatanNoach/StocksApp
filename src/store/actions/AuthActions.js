@@ -1,7 +1,7 @@
 import { createLoginApi } from "../../LoginApi";
+const loginApi = createLoginApi();
 // thunk needs to return a function
 export const loginUser = (email, password) => {
-  const loginApi = createLoginApi();
   // an arrow function that returns the dispatch method to the reducer
   return async (dispatch, getState) => {
     try {
@@ -13,11 +13,19 @@ export const loginUser = (email, password) => {
         type: "user/login",
         payload: { userId: result.userId, token: result.id },
       });
-      alert('Logged In!')
+      alert("Logged In!");
     } catch (e) {
       // TODO: better error handling
       console.log(e);
       alert("Wrong email or password!");
     }
+  };
+};
+export const logoutUser = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "user/logout",
+      payload: { userId: null, token: null },
+    });
   };
 };

@@ -8,8 +8,11 @@ const authReducer = (state = initState, action) => {
     case "user/login":
       console.log("login performed: ", action.payload);
       return action.payload;
+    case "user/logout":
+      console.log("logging out");
+      return action.payload;
     default:
-        return state;
+      return state;
   }
 };
 export default authReducer;

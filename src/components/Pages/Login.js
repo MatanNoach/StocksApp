@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { loginUser } from "../../store/actions/AuthActions";
 
 const fields = ["email", "password"];
-const userApi = createUserApi();
 // handles the sign up if the form is filled correctly
 async function handleSignup(values) {
 }

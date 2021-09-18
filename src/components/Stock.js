@@ -35,10 +35,10 @@ class Stock extends Component {
     return (
       <div>
         <Grid container>
-          <Grid item xs={2}>
-            <Typography variant="h6">{this.props.symbol}</Typography>
+          <Grid item xs={4}>
+            <Typography variant="h6">{this.props.name} ({this.props.symbol})</Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <FormControl variant="outlined">
               <InputLabel>Time</InputLabel>
               <Select
@@ -52,7 +52,7 @@ class Stock extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Typography
               variant="subtitle1"
               style={{

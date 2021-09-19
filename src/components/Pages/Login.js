@@ -4,7 +4,7 @@ import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
 import { connect } from "react-redux";
-import { loginUser,createUser } from "../../store/actions/AuthActions";
+import { loginUser, createUser } from "../../store/actions/AuthActions";
 import { Box } from "@mui/material";
 
 const fields = ["email", "password"];
@@ -99,7 +99,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(loginUser(email, password)),
-    signUp:(email,password) => dispatch(createUser(email,password)),
+    signUp: (email, password) => dispatch(createUser(email, password)),
   };
 };
 export default connect(
@@ -118,7 +118,9 @@ export default connect(
       email: Yup.string()
         .required("Please enter email")
         .email("Please enter a valid email"),
-      password: Yup.string().required("Please enter password"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Please enter password"),
     }),
 
     handleSubmit: async (values, thisComponent) => {
@@ -128,7 +130,7 @@ export default connect(
         console.log("logging in handle submit");
         thisComponent.props.login(values.email, values.password);
       } else if (dataFlag === "signUp") {
-        thisComponent.props.signUp(values.email,values.password);
+        thisComponent.props.signUp(values.email, values.password);
       }
     },
   })(Login)

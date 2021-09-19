@@ -5,15 +5,15 @@ export const loginUser = (email, password) => {
   // an arrow function that returns the dispatch method to the reducer
   return async (dispatch, getState) => {
     try {
-      // make async call to db using the dispatch method
-      var result = await userApi.loginUser(email, password);
-      console.log("login result: ", result);
-      // carry on with the dispatch after the async call performed
-      dispatch({
-        type: "user/login",
-        payload: { userId: result.userId, token: result.id },
+      // make async call to log in user
+      userApi.loginUser(email, password).then((res) => {
+        // when done, dispatch a user/login action
+        dispatch({
+          type: "user/login",
+          payload: { userId: res.userId, token: res.id },
+        });
+        alert("Logged In!");
       });
-      alert("Logged In!");
     } catch (e) {
       // TODO: better error handling
       console.log(e);
@@ -32,14 +32,17 @@ export const logoutUser = () => {
 export const createUser = (email, password) => {
   return async (dispatch, getState) => {
     try {
-      var result = await userApi.createUser(email, password);
-      console.log("creation result: ", result);
-      dispatch({
-        type: "user/create",
-        payload: { userId: result.userId, token: result.id },
+      // make async call to create the user
+      userApi.createUser(email, password).then((res) => {
+        // when done, dispatch a user/create action
+        dispatch({
+          type: "user/create",
+          payload: { userId: res.userId, token: res.id },
+        });
+        alert("User Created!");
       });
-      alert("user created!");
     } catch (e) {
+      // TODO: better error handling
       console.log(e);
       alert(e);
     }

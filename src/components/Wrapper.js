@@ -68,12 +68,8 @@ class AdminWrapper extends Component {
       <div id="Wrapper">
         <Topbar
           open={this.state.open}
-          styleClasses={{
-            appBarShift: classes.appBarShift,
-            appBar: classes.appBar,
-            toolbar: classes.toolbar,
-          }}
           handleDrawer={this.handleDrawerOpen}
+          drawerWidth={drawerWidth}
         />
         <Sidebar
           open={this.state.open}

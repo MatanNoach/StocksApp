@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Divider, Typography, Link } from "@material-ui/core";
+import { Button, Divider, Typography, Link } from "@mui/material";
 import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
@@ -38,7 +38,7 @@ class Login extends Component {
             width: "100%",
             flexDirection: "column",
             alignItems: "flex-start",
-            "& >*": { m: 1 },
+            "& > *": { m: 1 },
           }}
         >
           {fields.map((f, i) => {

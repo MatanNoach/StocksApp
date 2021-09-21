@@ -5,31 +5,30 @@ import Wrapper from "./components/Wrapper";
 import StocksTable from "./components/StocksTable";
 import Login from "./components/Pages/Login";
 import { connect } from "react-redux";
-import LogoutButton from "./components/LogoutButton";
-import Box from '@mui/material/Box'
-import { flexbox } from '@mui/system';
+import Box from "@mui/material/Box";
+
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Route
-          exact={true}
-          path="/"
-          render={() => (
-            <div>
-              <Wrapper>
-                {this.props.auth.token ? (
-                  <StocksTable />
-                ) : (
-                  <Box sx={{ display:"flex",justifyContent:"center"}}>
-                    <Login />
-                  </Box>
-                )}
-              </Wrapper>
-            </div>
-          )}
-        />
-      </Router>
+        <Router>
+          <Route
+            exact={true}
+            path="/"
+            render={() => (
+              <div>
+                <Wrapper>
+                  {this.props.auth.token ? (
+                    <StocksTable />
+                  ) : (
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <Login />
+                    </Box>
+                  )}
+                </Wrapper>
+              </div>
+            )}
+          />
+        </Router>
     );
   }
 }

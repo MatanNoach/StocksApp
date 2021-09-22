@@ -1,24 +1,38 @@
-import{ Component } from "react";
+import { Component } from "react";
+import { Divider, Drawer, IconButton, Box } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SidebarMenu from "./SidebarMenu";
-import { ChevronLeft } from "@material-ui/icons";
-import { Divider, IconButton, Drawer, Typography } from "@material-ui/core";
+
 
 class Sidebar extends Component {
   render() {
     return (
       <Drawer
-        classes={{ paper: this.props.styleClasses.drawerPaper }}
-        varient="permanent"
         open={this.props.open}
+        sx={{
+          width: this.props.width,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: this.props.width,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="persistant"
+        anchor="left"
       >
-        <div className={this.props.styleClasses.sidebarIcon}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            p: 1,
+            justifyContent: "flex-end",
+          }}
+        >
           <IconButton onClick={this.props.handleDrawer}>
-            <ChevronLeft />
+            {this.props.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </div>
-        <Typography component="h1" variant="h6" noWrap style={{textAlign:"center"}}>
-            Menu
-        </Typography>
+        </Box>
         <Divider />
         <SidebarMenu />
       </Drawer>

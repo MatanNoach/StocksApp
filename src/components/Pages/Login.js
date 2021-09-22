@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Divider, Typography, Link } from "@mui/material";
+import { Button, Divider, Typography, Link } from "@material-ui/core";
 import Field from "../Common/Field";
 import * as Yup from "yup";
 import { withFormik } from "formik";
@@ -28,7 +28,7 @@ class Login extends Component {
           borderRadius: "12px",
           boxShadow: 2,
           // nestes - direct child - each type - margin 1
-          "& >*": { m: 1 },
+          "& > *": { m: 1 },
         }}
       >
         <h1>Login</h1>
@@ -38,7 +38,7 @@ class Login extends Component {
             width: "100%",
             flexDirection: "column",
             alignItems: "flex-start",
-            "& > *": { m: 1 },
+            "& >*": { m: 1 },
           }}
         >
           {fields.map((f, i) => {
@@ -66,11 +66,11 @@ class Login extends Component {
           color="primary"
           data-flag="login"
           onClick={this.props.handleSubmit}
-          style={{ width: "50%" }}
+          style={{ width: "50%",margin:"10px"}}
         >
           Login
         </Button>
-        <Divider style={{ width: "100%" }} />
+        <Divider style={{ width: "100%",margin:"10px"}} />
         <Typography>
           Not a member?&nbsp;
           <Link
@@ -78,7 +78,7 @@ class Login extends Component {
             component="button"
             onClick={this.props.handleSubmit}
             data-flag="signUp"
-            style={{ fontSize: 16 }}
+            style={{ fontSize: 16}}
           >
             Signup now
           </Link>

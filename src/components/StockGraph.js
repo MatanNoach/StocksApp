@@ -1,12 +1,35 @@
 import React, { Component } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { createAPIClient } from "../Stocksapi";
+import { Typography } from "@material-ui/core";
 const data = [
   {
     id: "Random Stock",
     data: [],
   },
 ];
+const theme={
+  axis: {
+    domain: {
+      line: {
+        stroke: 'transparent',
+        strokeWidth: 1
+      }
+    },
+    ticks: {
+      line: {
+        stroke: '#777777',
+        strokeWidth: 1
+      },
+      text: {}
+    },
+    legend: {
+      text: {
+        fontSize: 12
+      }
+    }
+  },
+}
 const formatMapper = new Map();
 formatMapper.set("Daily", {
   xAxisFormat: "%d/%m/%y",
@@ -49,10 +72,21 @@ class StockGraph extends Component {
   }
   render() {
     return (
-      <div className="Stock" style={{ height: "300px", width: "450px" }}>
+      <div className="Stock" style={{width:"100%px",height:"250px" }}>
         <ResponsiveLine
           data={this.state.stockData}
-          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          theme={{
+            axis: {
+              legend:{
+                text:{
+                  fontSize:14,
+                  fontWeight:"bold"
+                }
+              }
+            },
+
+          }}
+          margin={{ top: 10, right: 10, bottom: 60, left: 55 }}
           xScale={{ format: "%Y-%m-%dT%H:%M:%S.%L%Z", type: "time" }}
           yScale={{ type: "linear", min: "auto", max: "auto" }}
           yFormat=" >-.2f"
@@ -68,7 +102,7 @@ class StockGraph extends Component {
             tickRotation: 0,
             format: formatMapper.get(this.props.timeSeries).xFormat, // set x axis presentation format
             legend: "Time",
-            legendOffset: 36,
+            legendOffset: 50,
             legendPosition: "middle",
           }}
           axisLeft={{
@@ -77,12 +111,12 @@ class StockGraph extends Component {
             tickPadding: 5,
             tickRotation: 0,
             legend: "price",
-            legendOffset: -40,
+            legendOffset: -50,
             legendPosition: "middle",
           }}
           colors={{ scheme: "spectral" }}
           pointSize={10}
-          pointColor={{ theme: "background" }}
+          pointColor="white"
           pointBorderWidth={2}
           pointBorderColor={{ from: "serieColor", modifiers: [] }}
           pointLabelYOffset={-12}

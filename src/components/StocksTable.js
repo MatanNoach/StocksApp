@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Stock from "./Stock";
-import { Divider, Grid } from "@material-ui/core";
+import Grid from "@mui/material/Grid";
 import { withStyles } from "@material-ui/styles";
 import { connect } from "react-redux";
 import { createUserApi } from "../UserApi";
@@ -8,7 +8,7 @@ const userApi = createUserApi();
 const styles = () => ({
   stocksTable: {
     margin: "auto",
-    width: "50%",
+    width: "60%",
   },
 });
 
@@ -35,10 +35,10 @@ class stocksTable extends Component {
             <h1>No stocks</h1>
           )
         ) : (
-          <Grid container>
+          <Grid container columnSpacing={2}>
             {this.state.stocks.map((s, i) => {
               return (
-                <Grid item xs={6} key={i}>
+                <Grid item xs={12} md={6} key={i}>
                   <Stock symbol={s.symbol} name={s.name} />
                 </Grid>
               );

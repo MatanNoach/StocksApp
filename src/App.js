@@ -32,7 +32,7 @@ class App extends Component {
                 path={p.path}
                 render={() => {
                   return (
-                  <Wrapper>
+                  <Wrapper page={p.name}>
                     {p.userOnly?
                     (// authenticated user? component. else, demand login
                       this.props.auth.token ? p.component : <Login/>

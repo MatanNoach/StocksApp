@@ -25,6 +25,7 @@ class Wrapper extends Component {
           open={this.state.open}
           handleDrawer={this.handleDrawerOpen}
           drawerWidth={drawerWidth}
+          page={this.props.page}
         />
         <Sidebar
           open={this.state.open}

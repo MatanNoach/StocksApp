@@ -7,26 +7,31 @@ import NotFound from "./components/Pages/NotFound";
 
 const wrappedPages = [
   {
+    name:"Trending",
     component: <Trending />,
     path: "/trending",
     userOnly: false,
   },
   {
+    name:"",
     component: <Login />,
     path: "/login",
     userOnly: false,
   },
   {
+    name:"Profile",
     component: <Profile />,
     path: "/profile",
     userOnly: true,
   },
   {
+    name:"Compare",
     component: <Compare />,
     path: "/compare",
-    userOnly: true,
+    userOnly: false,
   },
   {
+    name:"My Stocks",
     component: <MyStocks />,
     path: "/myStocks",
     userOnly: true,

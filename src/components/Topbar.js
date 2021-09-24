@@ -1,10 +1,10 @@
 import { Component } from "react";
 import LogoutButton from "./LogoutButton";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import { connect } from "react-redux";
 import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/system";
-import { createTheme, IconButton, Toolbar, Typography,Box } from "@mui/material";
+import { createTheme, Toolbar, Typography, Box } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 const theme = createTheme();
@@ -37,7 +37,7 @@ class Topbar extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Box sx={{display:"flex"}}>
+        <Box sx={{ display: "flex" }}>
           <AppBar
             position="fixed"
             open={this.props.open}
@@ -58,14 +58,16 @@ class Topbar extends Component {
                 variant="h6"
                 color="inherit"
                 noWrap
-                sx={{flexGrow: 1 }}
+                sx={{ flexGrow: 1 }}
               >
-                Page
+                {this.props.page}
               </Typography>
-              {this.props.auth.token ? <LogoutButton /> : (
-              <Button variant="contained" color="secondary" href="/myStocks">
-                Login
-              </Button>
+              {this.props.auth.token ? (
+                <LogoutButton />
+              ) : (
+                <Button variant="contained" color="secondary" href="/myStocks">
+                  Login
+                </Button>
               )}
             </Toolbar>
           </AppBar>

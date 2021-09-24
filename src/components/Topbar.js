@@ -1,5 +1,6 @@
 import { Component } from "react";
 import LogoutButton from "./LogoutButton";
+import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
 import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/system";
@@ -61,7 +62,11 @@ class Topbar extends Component {
               >
                 Page
               </Typography>
-              {this.props.auth.token ? <LogoutButton /> : null}
+              {this.props.auth.token ? <LogoutButton /> : (
+              <Button variant="contained" color="secondary" href="/myStocks">
+                Login
+              </Button>
+              )}
             </Toolbar>
           </AppBar>
         </Box>

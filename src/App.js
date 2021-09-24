@@ -1,34 +1,54 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import { Component } from "react";
 import Wrapper from "./components/Wrapper";
 import StocksTable from "./components/StocksTable";
-import Login from "./components/Pages/Login";
+
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
+
+import wrappedPages from "./Pages";
+import NotFound from "./components/Pages/NotFound";
+import Login from "./components/Pages/Login";
 
 class App extends Component {
   render() {
     return (
-        <Router>
-          <Route
-            exact={true}
-            path="/"
-            render={() => (
-              <div>
-                <Wrapper>
-                  {this.props.auth.token ? (
-                    <StocksTable />
-                  ) : (
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                      <Login />
-                    </Box>
-                  )}
-                </Wrapper>
-              </div>
-            )}
-          />
-        </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/trending" />
+          </Route>
+          {wrappedPages.map((p, i) => {
+            return (
+              <Route
+                exact={true}
+                key={i}
+                path={p.path}
+                render={() => {
+                  return (
+                  <Wrapper>
+                    {p.userOnly?
+                    (// authenticated user? component. else, demand login
+                      this.props.auth.token ? p.component : <Login/>
+                    )
+                    :
+                    // not user required? component
+                    p.component
+                  }
+                  </Wrapper>
+                  )
+                }}
+              />
+            );
+          })}
+        </Switch>
+      </Router>
     );
   }
 }

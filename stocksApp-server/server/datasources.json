@@ -1,0 +1,14 @@
+{
+  "StocksAppDB": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "StocksAppDB",
+    "password": "",
+    "name": "StocksAppDB",
+    "user": "",
+    "useNewUrlParser": true,
+    "connector": "mongodb",
+    "allowExtendedOperators":true
+  }
+}

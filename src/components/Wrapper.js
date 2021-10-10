@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
 
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
-import { Box } from "@mui/system";
-import CssBaseline from "@mui/material/CssBaseline";
+import { Box} from "@mui/system";
 
 const drawerWidth = 240;
 class Wrapper extends Component {
@@ -20,7 +18,6 @@ class Wrapper extends Component {
   render() {
     return (
       <div>
-        <CssBaseline />
         <Topbar
           open={this.state.open}
           handleDrawer={this.handleDrawerOpen}
@@ -32,7 +29,16 @@ class Wrapper extends Component {
           handleDrawer={this.handleDrawerClose}
           width={drawerWidth}
         />
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 10,
+            flexGrow:1,
+            p:3,
+            ...(this.state.open && { ml: `${drawerWidth}px` }),
+          }}
+        >
           {this.props.children}
         </Box>
       </div>

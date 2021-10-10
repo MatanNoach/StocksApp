@@ -1,6 +1,6 @@
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from "@mui/material/FormControl"
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
@@ -10,6 +10,7 @@ import CardHeader from "@mui/material/CardHeader";
 import Box from "@mui/material/Box";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import React, { Component } from "react";
 import StockGraph from "./StockGraph";
 import { TrendingDown, TrendingUp } from "@mui/icons-material";
@@ -83,9 +84,15 @@ class Stock extends Component {
         <CardActions>
           <Box display="flex" sx={{ width: "100%" }}>
             <Box sx={{ flexGrow: 1 }}>
-              <Fab color="primary" aria-label="add">
-                <AddIcon />
-              </Fab>
+              {this.props.isUser ? (
+                <Fab color="secondary" aria-label="remove">
+                  <RemoveIcon />
+                </Fab>
+              ) : (
+                <Fab color="primary" aria-label="add">
+                  <AddIcon />
+                </Fab>
+              )}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography>Timeline: &nbsp;</Typography>

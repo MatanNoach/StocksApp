@@ -49,7 +49,7 @@ class Topbar extends Component {
                 onClick={this.props.handleDrawer}
                 color="inherit"
                 edge="start"
-                sx={{ mr: 2, ...(this.props.open && { display: "none" }) }}
+                style={{ mr: 2, ...(this.props.open && { display: "none" }) }}
               >
                 <MenuIcon />
               </IconButton>
